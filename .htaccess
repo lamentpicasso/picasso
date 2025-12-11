@@ -1,0 +1,29 @@
+# BEGIN WordPress
+# The directives (lines) between `BEGIN WordPress` and `END WordPress` are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# Custom rule to ensure all .php files are handled by the PHP processor
+# This is often done implicitly, but it's here for full compatibility.
+# In many shared hosting environments, this rule might be unnecessary or
+# might conflict with server-level configurations; use with caution.
+# <FilesMatch "\.php$">
+#     SetHandler application/x-httpd-php
+# </FilesMatch>
+
+# Optional security rule to block access to sensitive files
+<FilesMatch "^(wp-config\.php|readme\.html|license\.txt)$">
+    Require all denied
+</FilesMatch>
